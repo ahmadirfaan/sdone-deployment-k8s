@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: sdone-login-action
+  labels:
+    component: sdone-login-action
+spec:
+  type: LoadBalancer
+  selector:
+    component: sdone-login-action
+  ports:
+    - port: 30031
+      name: http
+      protocol: TCP
+      targetPort: 30031
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sdone-token-generator
+  labels:
+    component: sdone-token-generator
+spec:
+  type: ClusterIP
+  selector:
+    component: sdone-token-generator
+  ports:
+    - port: 40041
+      targetPort: 40041
