@@ -1,12 +1,12 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sdone_login-action
+  name: sdone-login-action
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
-      app: sdone_login-action
+      app: sdone-login-action
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -15,10 +15,12 @@ spec:
   template:
     metadata:
       labels:
-        app: sdone_login-action
+        app: sdone-login-action
     spec:
+      imagePullSecrets:
+        - name: credential-github
       containers:
-        - name: app
+        - name: login-action
           image: ghcr.io/ahmadirfaan/login-action:1.1.1
           ports:
             - containerPort: 30031

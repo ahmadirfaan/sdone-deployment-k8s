@@ -1,12 +1,12 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sdone_token-refresher
+  name: sdone-token-refresher
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
-      app: sdone_token-refresher
+      app: sdone-token-refresher
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -15,10 +15,12 @@ spec:
   template:
     metadata:
       labels:
-        app: sdone_token-refresher
+        app: sdone-token-refresher
     spec:
+      imagePullSecrets:
+        - name: credential-github
       containers:
-        - name: app
+        - name: token-refresher
           image: ghcr.io/ahmadirfaan/token-refresher:1.0.0
           ports:
             - containerPort: 30032

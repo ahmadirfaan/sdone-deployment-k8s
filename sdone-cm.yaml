@@ -6,11 +6,11 @@ metadata:
     component: sdone-cm
 data:
   TOKEN_KEY: 'IOzXPh84Qjg9pZi4yst3HKpD8VxnNrRgRUmursBMHEA='
-  TOKEN_GENERATOR_IP: 'sdone_token-generator'
+  TOKEN_GENERATOR_IP: 'sdone-token-generator'
   TOKEN_GENERATOR_PORT: '40041'
   DB_USER_IP: '10.102.235.76'
   DB_USER_PORT: '50051'
   DB_SESSION_IP: '10.102.235.76'
   DB_SESSION_PORT: '50052'
-  TOKEN_VALIDATOR_IP: 'sdone_token-validator'
+  TOKEN_VALIDATOR_IP: 'sdone-token-validator'
   TOKEN_VALIDATOR_PORT: '40001'

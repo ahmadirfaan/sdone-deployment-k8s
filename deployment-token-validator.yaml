@@ -1,12 +1,12 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sdone_token-validator
+  name: sdone-token-validator
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
-      app: sdone_token-validator
+      app: sdone-token-validator
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -15,10 +15,12 @@ spec:
   template:
     metadata:
       labels:
-        app: sdone_token-validator
+        app: sdone-token-validator
     spec:
+      imagePullSecrets:
+        - name: credential-github
       containers:
-        - name: app
+        - name: token-validator
           image: ghcr.io/ahmadirfaan/token-validator:1.1.0
           ports:
             - containerPort: 40001
