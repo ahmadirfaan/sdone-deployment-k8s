@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sdone_token-refresher
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: sdone_token-refresher
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        app: sdone_token-refresher
+    spec:
+      containers:
+        - name: app
+          image: ghcr.io/ahmadirfaan/token-refresher:1.0.0
+          ports:
+            - containerPort: 30032
+          env:
+            - name: PORT
+              value: '30032'
+          envFrom:
+            - configMapRef:
+                name: sdone-cm
+          resources:
+            requests:
+              cpu: 250m
+              memory: 512Mi
+            limits:
+              cpu: 250m
+              memory: 512Mi

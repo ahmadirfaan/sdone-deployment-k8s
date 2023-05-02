@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: sdone_token-generator
+  labels:
+    component: sdone_token-generator
+spec:
+  selector:
+    component: sdone_token-generator
+  ports:
+    - port: 40041

@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sdone_login-action
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: sdone_login-action
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        app: sdone_login-action
+    spec:
+      containers:
+        - name: app
+          image: ghcr.io/ahmadirfaan/login-action:1.1.1
+          ports:
+            - containerPort: 30031
+          env:
+            - name: PORT
+              value: '30031'
+            - name: TOKEN_AGE
+              value: '120'
+          envFrom:
+            - configMapRef:
+                name: sdone-cm
+          resources:
+            requests:
+              cpu: 250m
+              memory: 512Mi
+            limits:
+              cpu: 250m
+              memory: 512Mi
