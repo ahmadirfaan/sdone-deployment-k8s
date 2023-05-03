@@ -1,29 +1,66 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: sdone-login-action
+  name: sdone-login-action-service
   labels:
-    component: sdone-login-action
+    component: sdone-login-action-service
 spec:
-  type: LoadBalancer
+  type: NodePort
   selector:
-    component: sdone-login-action
+    app: sdone-login-action
   ports:
     - port: 30031
-      name: http
-      protocol: TCP
       targetPort: 30031
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: sdone-token-generator
+  name: sdone-token-generator-service
   labels:
-    component: sdone-token-generator
+    component: sdone-token-generator-service
 spec:
-  type: ClusterIP
+  type: NodePort
   selector:
-    component: sdone-token-generator
+    app: sdone-token-generator
   ports:
     - port: 40041
       targetPort: 40041
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sdone-token-validator-service
+  labels:
+    component: sdone-token-validator-service
+spec:
+  selector:
+    app: sdone-token-validator
+  ports:
+    - port: 40042
+      targetPort: 40042
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sdone-token-refresher-service
+  labels:
+    component: sdone-token-refresher-service
+spec:
+  selector:
+    app: sdone-token-refresher
+  ports:
+    - port: 30032
+      targetPort: 30032
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sdone-logout-action-service
+  labels:
+    component: sdone-logout-action-service
+spec:
+  selector:
+    app: sdone-logout-action
+  ports:
+    - port: 30033
+      targetPort: 30033

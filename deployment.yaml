@@ -67,11 +67,134 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 40041
+              hostPort: 40041
           env:
             - name: PORT_GRPC
               value: '40041'
             - name: TOKEN_KEY
               value: 'IOzXPh84Qjg9pZi4yst3HKpD8VxnNrRgRUmursBMHEA='
+          envFrom:
+            - configMapRef:
+                name: sdone-cm
+          resources:
+            requests:
+              cpu: 250m
+              memory: 512Mi
+            limits:
+              cpu: 250m
+              memory: 512Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sdone-token-validator
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: sdone-token-validator
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        app: sdone-token-validator
+    spec:
+      imagePullSecrets:
+        - name: credential-github
+      containers:
+        - name: token-validator
+          image: ghcr.io/ahmadirfaan/token-validator:1.1.0
+          ports:
+            - containerPort: 40002
+          env:
+            - name: PORT_GRPC
+              value: '40002'
+          envFrom:
+            - configMapRef:
+                name: sdone-cm
+          resources:
+            requests:
+              cpu: 250m
+              memory: 512Mi
+            limits:
+              cpu: 250m
+              memory: 512Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sdone-token-refresher
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: sdone-token-refresher
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        app: sdone-token-refresher
+    spec:
+      imagePullSecrets:
+        - name: credential-github
+      containers:
+        - name: token-refresher
+          image: ghcr.io/ahmadirfaan/token-refresher:1.0.0
+          ports:
+            - containerPort: 30032
+          env:
+            - name: PORT
+              value: '30032'
+          envFrom:
+            - configMapRef:
+                name: sdone-cm
+          resources:
+            requests:
+              cpu: 250m
+              memory: 512Mi
+            limits:
+              cpu: 250m
+              memory: 512Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sdone-logout-action
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: sdone-logout-action
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        app: sdone-logout-action
+    spec:
+      imagePullSecrets:
+        - name: credential-github
+      containers:
+        - name: logout-action
+          image: ghcr.io/ahmadirfaan/logout-action:1.0.0
+          ports:
+            - containerPort: 30033
+          env:
+            - name: PORT
+              value: '30033'
+            - name: 'SECONDS_ADD'
+              value: '120'
           envFrom:
             - configMapRef:
                 name: sdone-cm
