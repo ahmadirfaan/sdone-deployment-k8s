@@ -25,6 +25,8 @@ spec:
           ports:
             - containerPort: 30031
           env:
+            - name: TEST_MODE
+              value: 'true'
             - name: PORT
               value: '30031'
             - name: TOKEN_AGE
