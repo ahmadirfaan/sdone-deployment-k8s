@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: sdone-login-action
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
       app: sdone-login-action
@@ -47,7 +47,7 @@ kind: Deployment
 metadata:
   name: sdone-token-generator
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
       app: sdone-token-generator
@@ -91,7 +91,7 @@ kind: Deployment
 metadata:
   name: sdone-token-validator
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
       app: sdone-token-validator
@@ -131,7 +131,7 @@ kind: Deployment
 metadata:
   name: sdone-token-refresher
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
       app: sdone-token-refresher
@@ -171,7 +171,7 @@ kind: Deployment
 metadata:
   name: sdone-logout-action
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
       app: sdone-logout-action
