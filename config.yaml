@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sdone-cm
+  labels:
+    component: sdone-cm
+data:
+  TOKEN_KEY: 'IOzXPh84Qjg9pZi4yst3HKpD8VxnNrRgRUmursBMHEA='
+  TOKEN_GENERATOR_IP: 'sdone-token-generator-service'
+  TOKEN_GENERATOR_PORT: '40041'
+#  DB_USER_IP: '193.111.124.163'
+  DB_USER_IP: '10.102.235.76'
+  DB_USER_PORT: '50051'
+#  DB_SESSION_IP: '193.111.124.163'
+  DB_SESSION_IP: '10.102.235.76'
+  DB_SESSION_PORT: '50052'
+  TOKEN_VALIDATOR_IP: 'sdone-token-validator-service'
+  TOKEN_VALIDATOR_PORT: '40002'
+
+---
+kind: Secret
+type: kubernetes.io/dockerconfigjson
+apiVersion: v1
+metadata:
+  name: credential-github
+data:
+  .dockerconfigjson: ewogICAgImF1dGhzIjoKICAgIHsKICAgICAgICAiZ2hjci5pbyI6CiAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgICJhdXRoIjoiWVdodFlXUnBjbVpoWVc0NloyaHdYMFJFVURReVMwTTBZMlZyT0VOM1YzSllaVWd3WlhWNlJUQkVWMlJEZERGM2NHbHJTQT09IgogICAgICAgICAgICB9CiAgICB9Cn0=
