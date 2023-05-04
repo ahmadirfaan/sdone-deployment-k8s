@@ -22,6 +22,7 @@ spec:
       containers:
         - name: login-action
           image: ghcr.io/ahmadirfaan/login-action:1.1.1
+          imagePullPolicy: Always
           ports:
             - containerPort: 30031
           env:
@@ -110,6 +111,7 @@ spec:
       containers:
         - name: token-validator
           image: ghcr.io/ahmadirfaan/token-validator:1.1.0
+          imagePullPolicy: Always
           ports:
             - containerPort: 40002
           env:
@@ -150,6 +152,7 @@ spec:
       containers:
         - name: token-refresher
           image: ghcr.io/ahmadirfaan/token-refresher:1.0.0
+          imagePullPolicy: Always
           ports:
             - containerPort: 30032
           env:
@@ -189,13 +192,14 @@ spec:
         - name: credential-github
       containers:
         - name: logout-action
-          image: ghcr.io/ahmadirfaan/logout-action:1.0.0
+          image: ghcr.io/ahmadirfaan/logout-action:1.0.1
+          imagePullPolicy: Always
           ports:
             - containerPort: 30033
           env:
             - name: PORT
               value: '30033'
-            - name: 'SECONDS_ADD'
+            - name: SECONDS_ADD
               value: '120'
           envFrom:
             - configMapRef:
